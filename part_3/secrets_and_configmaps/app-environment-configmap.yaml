@@ -1,0 +1,7 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: app-environment
+  namespace: application
+data:
+  DB_HOST: app-db.application:3306.svc.cluster.local

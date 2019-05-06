@@ -1,0 +1,30 @@
+kind: StatefulSet
+apiVersion: apps/v1beta1
+metadata:
+  name: app-db
+  namespace: application
+  labels:
+    app: app-db
+spec:
+  serviceName: app-db-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: app-db
+    spec:
+      containers:
+      - name: app-db
+        image: mysql:5.7
+        env:
+        - name: MYSQL_ROOT_PASSWORD 
+          value: root_pass
+        - name: MYSQL_DATABASE
+          value: demo_db
+        - name: MYSQL_USER
+          value: wordpress
+        - name: MYSQL_PASSWORD
+          value: wordpress_pass
+        ports:
+        - containerPort: 3306
+          protocol: TCP

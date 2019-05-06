@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: front-end
+  namespace: application
+  labels:
+    app: front-end
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: front-end
+  template:
+    metadata:
+      labels:
+        app: front-end
+    spec:
+      containers:
+      - name: front-end-app
+        image: wordpress
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        env:
+        - name: WORDPRESS_DB_HOST
+          value: app-db.application:3306.svc.cluster.local
+        - name: WORDPRESS_DB_USER
+          value: wordpress
+        - name: WORDPRESS_DB_PASSWORD
+          value: wordpress_pass
+        - name: WORDPRESS_DB_NAME
+          value: demo_db
+        - name: ServerName
+          value: localhost
+
