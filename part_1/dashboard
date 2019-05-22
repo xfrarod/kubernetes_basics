@@ -1,0 +1,11 @@
+# Instalar el dashboard
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml
+
+# Poner de forma accesible el dashboard
+kubectl proxy --port=8090
+
+# Acceder al dashboard
+http://localhost:8090/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
+
+# Crear admin-user service account and el role-binding relacionado
+kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
